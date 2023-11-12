@@ -2,49 +2,54 @@ package main
 
 import (
 	"bufio"
+	"errors"
+	"flag"
 	"fmt"
 	"os"
-	"strconv"
+	"strings"
 
 	"github.com/xprnio/go-aoc-2022/pkg/day01"
 )
 
-func getMaxElements() (uint32, error) {
-	if len(os.Args) < 2 {
-		return 0, nil
-	}
+const inputLineDelimiter = "\n"
 
-	value, err := strconv.ParseUint(os.Args[1], 10, 32)
-	if err != nil {
-		return 0, err
-	}
+func getMaxElements() uint32 {
+	max := flag.Uint("max", 0, "Maximum number of elements to return")
+	flag.Parse()
 
-	return uint32(value), nil
+	return uint32(*max)
 }
 
 func readInput() (string, error) {
+	stat, err := os.Stdin.Stat()
+	if err != nil {
+		return "", err
+	}
+	if (stat.Mode() & os.ModeCharDevice) != 0 {
+		return "", errors.New("No data")
+	}
+
 	scan := bufio.NewScanner(os.Stdin)
-	input := ""
+	input := new(strings.Builder)
 
 	for scan.Scan() {
-		input += scan.Text()
-		input += "\n"
+		input.WriteString(scan.Text())
+		input.WriteString(inputLineDelimiter)
 	}
 
 	if err := scan.Err(); err != nil {
 		return "", nil
 	}
 
-	return input, nil
+	if input.Len() == 0 {
+		return "", errors.New("Input is empty")
+	}
+
+	return input.String(), nil
 }
 
 func main() {
-	max, err := getMaxElements()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Invalid max-n: %s\n", err)
-		os.Exit(1)
-	}
-
+	max := getMaxElements()
 	input, err := readInput()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error reading stdin: %s\n", err)
@@ -63,6 +68,6 @@ func main() {
 	}
 
 	for _, cal := range calories {
-		fmt.Fprintf(os.Stdout, "%d\n", cal)
+		fmt.Printf("%d\n", cal)
 	}
 }

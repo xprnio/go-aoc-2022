@@ -7,7 +7,7 @@ clean:
 test:
 	@go test -v ./...
 
-build-%:
+build-%: cmd/day%/main.go
 	@echo "# Building day $*"
 	@go build -v -o "bin/day$*" "cmd/day$*/main.go" || exit 1
 

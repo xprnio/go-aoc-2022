@@ -1,4 +1,5 @@
 INPUT_DIR := inputs
+
 clean:
 	@go clean -testcache
 	@rm -rf bin/*

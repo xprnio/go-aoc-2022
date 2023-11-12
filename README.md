@@ -40,3 +40,14 @@ make day-01
 -[ ] Day 24
 -[ ] Day 25
 ```
+
+## Dev Environment
+```
+zellij -l zellij.kdl
+```
+
+### Dependencies:
+- [Zellij](https://zellij.dev/)
+- [Helix](https://helix-editor.com/)
+- [Sidetree](https://github.com/topisani/sidetree)
+- [LazyGit](https://github.com/jesseduffield/lazygit)

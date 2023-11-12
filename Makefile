@@ -8,7 +8,7 @@ test:
 
 build-%:
 	@echo "# Building day $*"
-	@go build -v -o "bin/day$*" "cmd/day$*/main.go"
+	@go build -v -o "bin/day$*" "cmd/day$*/main.go" || exit 1
 
 day-01: build-01
 	@echo "# Running day 01"

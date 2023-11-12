@@ -12,7 +12,7 @@ layout {
 		}
 		pane name="Helix" {
 			size "80%"
-			command "$EDITOR"
+			command "helix"
 		}
 	}
 	layout-tab name="Version control" {
